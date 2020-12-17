@@ -8,9 +8,13 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  /*.App-logo {*/
+  /*  animation: App-logo-spin infinite 20s linear;*/
+  /*}*/
+}
+
+.main-bg{
+  /*background: #E0E7F0;*/
 }
 
 .App-header {
@@ -23,9 +27,70 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.btn-red{
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  background-color: crimson;
+  cursor: pointer;
+}
+.btn-yellow{
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  background-color: #e26304;
+  cursor: pointer;
+}
+.btn-gray{
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  background-color: #afafaf;
+  cursor: pointer;
+}
 
 .App-link {
   color: #61dafb;
+}
+.header-suptitle{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  color: #2B3137;
+  height: 40px;
+  letter-spacing: 1px;
+  line-height: 40px;
+}
+
+.list-box{
+  border: solid 1px #afafaf;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+.list-item{
+  list-style-type: none;
+  background-color: #fff;
+}
+.list-item:nth-child(odd){
+  background: #f8fafc;
+}
+.list-title{
+  border: solid 1px #E0E7F0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  padding: 6px 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6A7175;
+}
+.list-drop{
+  display: none;
+}
+.list-drop-active{
+  display: block;
 }
 
 @keyframes App-logo-spin {
