@@ -41,7 +41,11 @@ export default class Form extends React.Component {
         console.log( num.toFixed(2));
         function commit(name){
             console.log(name);
+        } 
+        function commit2(name){
+            console.log(name);
         }
+        
 
 
 
