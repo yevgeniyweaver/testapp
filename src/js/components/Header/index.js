@@ -239,7 +239,11 @@ export default class Header extends Component {
         }
         let commit2 = () =>{
             console.log('commit2')
+        } 
+        let commit3 = () =>{
+            console.log('commit3')
         }
+        
      
 
 

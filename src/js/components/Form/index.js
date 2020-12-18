@@ -45,6 +45,9 @@ export default class Form extends React.Component {
         function commit2(name){
             console.log(name);
         }
+        function commit3(name){
+            console.log('commit3');
+        }
         
 
 
