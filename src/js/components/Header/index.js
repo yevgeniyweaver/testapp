@@ -33,6 +33,14 @@ export default class Header extends Component {
                 { title: "hour range", dropdown: "first drop content" },
                 { title: "period", dropdown: "fifth drop content" },
                 { title: "sixth", dropdown: "sixth drop content" },
+            ],
+            objects: [
+                { id: 201, title: "ЖК Розенталь", dropdown: "first drop content" },
+                { id: 202, title: "Пространство на Неделина", dropdown: "second drop content" },
+                { id: 203, title: "ЖК Малинки", dropdown: "third drop content" },
+                { id: 204, title: "41 Жемчужина", dropdown: "first drop content" },
+                { id: 205, title: "ЖК Острова", dropdown: "fifth drop content" },
+                { id: 206, title: "ЖК Кандинский", dropdown: "sixth drop content" },
             ]
 
         };
@@ -66,7 +74,6 @@ export default class Header extends Component {
         let listDropActive = "list-drop-active";
         
         
-        
         let value = true, value2;
         let str1 = "23ss";
         let ref = null;
@@ -76,8 +83,7 @@ export default class Header extends Component {
         let oranges = "3";
         //alert( +apples + +oranges ); // 5
         // let a = 1;let b = 2;let c = 3 - (a = b + 1);
-
-
+        
         // let a = 1, b = 1;
         // let c = ++a; // ?
         // let d = b++; // ?
@@ -96,8 +102,6 @@ export default class Header extends Component {
                 return x * pow(x, n - 1);
             }
         }
-
-        //alert( pow(2, 3) ); // 8
         function foo(){
             let num2;
             if (true) {
@@ -219,6 +223,16 @@ export default class Header extends Component {
         }
         //userAll.go();
         let str = "Kavabanba";
+        let favArr = [];
+        
+        let addToFav = (id) => {
+            if(id !=0){
+                console.log(id);
+                favArr.push(id);
+            }
+            console.log(favArr);
+        }
+        
 
         // if(str.includes('Ka',0)){
         //     console.log(str.includes('ba',5));
@@ -226,19 +240,8 @@ export default class Header extends Component {
         //     console.log('str.indexOf is not defined');
         // }
         //console.log( "Fidget".startsWith("Wid") );
-
-
-
-
-
-
-
-
-
-
+        
         // let sayHi = user.sayHi.bind(user); // (*)
-
-
         //setTimeout(sayHi, 1000); // Привет, Вася!
 
         
@@ -251,6 +254,16 @@ export default class Header extends Component {
         );
 
         const ulBlock = <ul className="list-box">{listItems}</ul>;
+        
+        const objectItem = this.state.objects.map((item, key) =>
+            <li className={listClass} key={key} onClick={() => addToFav(item.id.toString())}>
+                <div className="list-title">{item.title} item</div>
+                <div className={(isOpen && this.state.liKey === key.toString() )? listDropActive : listDrop}>{item.dropdown}</div>
+            </li>
+        );
+
+        const objectsBlock = <ul className="list-box">{objectItem}</ul>;
+        
 
         return (
             <div className="main-bg">
@@ -269,6 +282,8 @@ export default class Header extends Component {
                             }
                             <h2 className='header-suptitle'>Distribution Summary</h2>
                             {ulBlock}
+                            {objectsBlock}
+                            
 
 
                             <div className='header-main-titleBlock col-md-5 text-center text-md-left col-sm-10'>
