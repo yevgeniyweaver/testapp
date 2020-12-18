@@ -39,6 +39,9 @@ export default class Form extends React.Component {
 
         console.log( Math.floor(num * 100) / 100 );
         console.log( num.toFixed(2));
+        function commit(name){
+            console.log(name);
+        }
 
 
 
