@@ -233,6 +233,11 @@ export default class Header extends Component {
             console.log(favArr);
         }
         
+        let commit1 = () =>{
+            console.log('commit1')
+            console.log('commit1_1')
+        }
+        
 
         // if(str.includes('Ka',0)){
         //     console.log(str.includes('ba',5));

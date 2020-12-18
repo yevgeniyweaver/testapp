@@ -11,20 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="adc12aa2-e886-4d62-a736-569cb4bef33a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/js/components/Form/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/components/Header/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/components/Main/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/components/NavBar/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/components/Qaengine/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/js/config/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scss/Form.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scss/Header.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scss/NavBar.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +40,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../widix/dev-repo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -87,6 +74,7 @@
       <workItem from="1607499172064" duration="5494000" />
       <workItem from="1607585156256" duration="3025000" />
       <workItem from="1607672412458" duration="4001000" />
+      <workItem from="1608279998121" duration="2409000" />
     </task>
     <servers />
   </component>
