@@ -5,6 +5,14 @@
 /.pnp
 .pnp.js
 
+#others
+/dir1
+/dir2
+/linux
+/input
+/vasia
+.idea/*.xml
+
 # testing
 /coverage
 

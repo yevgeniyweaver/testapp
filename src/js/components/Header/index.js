@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Form from '../../components/Form';
+//import Form from '../../components/Form';
 // import { useTranslation } from 'react-i18next';
 // import { Link as ScrollLink } from 'react-scroll';
 //import { Materials, PlanOfCourse, Images, afterCourseBlock } from '../../config/qaengine';
-
 // import '../../style/animation/DesktopPhoneAnimation.scss';
 import '../../../scss/Header.scss';
 
 export default class Header extends Component {
     static propTypes = {
-        width: PropTypes.number.isRequired,
         isOpen: PropTypes.bool.isRequired,
         hanleClick: PropTypes.func.isRequired,
-        showForm: PropTypes.func.isRequired,
+        // showForm: PropTypes.func.isRequired,
         isCompleted: PropTypes.bool.isRequired,
-        didCompleted: PropTypes.func.isRequired,
+        // didCompleted: PropTypes.func.isRequired,
     };
-
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
             clicked: false,
+            error: false,
             distance: "",
             isOpen: false,
             liKey:null,
             liPrev:null,
+            users: {},
             numbersObj: [
                 { title: "queve", dropdown: "first drop content" },
                 { title: "start date", dropdown: "second drop content" },
@@ -42,7 +42,6 @@ export default class Header extends Component {
                 { id: 205, title: "ЖК Острова", dropdown: "fifth drop content" },
                 { id: 206, title: "ЖК Кандинский", dropdown: "sixth drop content" },
             ]
-
         };
     }
     onBtnClick = () => {
@@ -61,236 +60,149 @@ export default class Header extends Component {
         if (this.state.isOpen && key === prev) {
             this.setState({ isOpen: false });//return;
         } else { this.setState({ isOpen: true } ) }
-        // this.setState((state) => ({
-        //     liPrev: state.liKey
-        // }));
+        /* this.setState((state) => ({ liPrev: state.liKey })); */
     }
 
+    onNameChange = (e) => {
+        let name = e.target.value;
+        this.setState({ name: name});
+    }
+    
+    onAsync = (e) => {
+        e.preventDefault();
+        let inputName =  this.state.name;
+        const statusArr = {
+            200:' Ok',
+            300:' Redirect',
+            304:' Not modified',
+            400:' Bad request',
+            404:' Not found',
+            401:' Unauthorized',
+            empty:' Status not found'
+        }
+        
+        async function testAsync() {
+            //return Promise.reject(401)
+            let promise = new Promise((resolve, reject) => {
+                if(inputName < 400){
+                    setTimeout(() => resolve(inputName), 800)
+                }
+                setTimeout(() => reject(inputName), 1700)
+            });
+            let user
+            let response = await fetch('https://jsonplaceholder.typicode.com/users');
+            if (response.ok) { // если HTTP-статус в диапазоне 200-299
+                user = await response.json(); // получаем тело ответа (см. про этот метод ниже)
+            } else {
+                alert("Ошибка HTTP: " + response.status);
+            }
+            console.log(user)
+            let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
+            let res = await fetch(url);
+            let commits = await res.json(); // читаем ответ в формате JSON
+            console.log(commits)
+            //let promise = Promise.resolve(inputName)
+
+            
+            let status = ''
+            try {
+                status = await promise; // будет ждать, пока промис не выполнится (*)
+            } catch(err) {
+                status = err
+                alert(err); // TypeError: failed to fetch
+                return Promise.resolve(err);
+            }
+            // let promise2 = new Promise((resolve, reject) => {
+            //     setTimeout(() => reject('error '+inputName), 1700)
+            // });
+           // let error = await promise2;
+           
+            //return Promise.reject(inputName)
+           
+           //console.log(status.toString()+statusArr[status])
+            //console.log(error)
+            
+            return status
+        }
+        testAsync()
+          .finally(console.log('loading response'))
+          .then(
+              (status) => {
+                  if(statusArr[status]){
+                      console.log(status.toString()+statusArr[status])
+                  }else{
+                      console.log(status.toString()+statusArr['empty'])
+                  }
+              },
+              (error) => {
+                  console.log('error '+error.toString()+statusArr[error])
+              }
+        )
+    }
+    
+
     render(){
-        let { clicked, liKey, isOpen } = this.state;
-        const numbers = [1, 2, 3, 4, 5];
+        let { clicked, isOpen } = this.state;
         let listClass = "list-item";
         let listDrop = "list-drop";
         let listDropActive = "list-drop-active";
         
-        
-        let value = true, value2;
-        let str1 = "23ss";
-        let ref = null;
-        //console.log( Boolean("Привет!")); // string
-        let s = +true;
-        let apples = "2";
-        let oranges = "3";
-        //alert( +apples + +oranges ); // 5
-        // let a = 1;let b = 2;let c = 3 - (a = b + 1);
-        
-        // let a = 1, b = 1;
-        // let c = ++a; // ?
-        // let d = b++; // ?
-        // //alert(a+'-'+b+'-'+c+'-'+d);
-        // let func = function(arg1, arg2, ...argN) {
-        //     let expression = arg1 + arg2;
-        //     return expression;
-        // };
-        // console.log(func(23,44));
-
-
-        function pow(x, n) {
-            if (n == 1) {
-                return x;
-            } else {
-                return x * pow(x, n - 1);
-            }
-        }
-        function foo(){
-            let num2;
-            if (true) {
-                var num1 = 5;        // существуют в области видимости функции
-                num2 = 10;     // существуют в области видимости блока
-                let num3 = 23;       // существуют в области видимости блока
-            }
-            console.log(num1);
-            console.log(num2);
-        }
-        function foo1(){
-            var num1 = 5;
-            const num2 = 10;
-            let num3 = 23;
-            function foo2(){
-                console.log(num1);
-                console.log(num2);
-                console.log(num3);
-            }
-            foo2();
-        }
-
-        function foo(){
-            a = a+2
-            console.log(a); // 5
-        }
-        function bar(){
-             var a = 10;
-            foo();
-        }
-        var a = 7;
-
-        function User(name) {
-            // методом объекта становится вложенная функция
-             function sayHi() {
-                alert(name);
-            }
-        }
-        let userLa = new User("John");
-        //user.sayHi();
-        function makeCounter() {
-            let count = 0;
-            return function() {
-                console.log(count);
-                return count=count+2; // есть доступ к внешней переменной "count"
-            };
-        }
-
-        function makeWorker() {
-            let name = 'Vasia';
-            return function() {
-                console.log(name);
-            };
-        }
-        let name = 'Jony';
-        let work = makeWorker();
-        //work();
-
-        let counter = makeCounter();
-
-        let user = {
-            firstName: "Вася",
-            sayHi() {
-                console.log(`Привет, ${this.firstName}!`);
-            }
-        };
-        // Not working
-        //setTimeout(user.sayHi, 1000); // Привет, undefined!
-        // Working variant
-        // setTimeout(function() {
-        //     user.sayHi(); // Привет, Вася!
-        // }, 1000);
-
-        // setTimeout(() => user.sayHi(), 1000); // Привет, Вася!
-        // user = { sayHi() { alert("Другой пользователь в 'setTimeout'!"); } };
-
-        let user1 = {
-            firstName: "Вася",
-            lastName: "Petrov",
-            sayGoodBye(){
-                alert(`Good Bye, ${this.firstName}!`);
-            }
-        };
-        function func() {
-            alert(this.firstName+this.lastName);
-        }
-        let funcUser = func.bind(user1);
-        //funcUser();
-        let sayGood = user1.sayGoodBye.bind(user1); // Привет, Вася!
-        //sayGood();
-
-
-        let user2 = {
-            firstName: "Вася",
-            lastName: "Petrov",
-            sayWord(phrase){
-                alert(`${phrase} ${this.firstName}?`);
-            }
-        };
-
-        let sayWord = user2.sayWord.bind(user2);
-        //sayWord('What`s hapend');
-
-        //setTimeout(sayWord('What`s hapend'), 2000); // Привет, Вася!
-        let userAll = {
-            name:'Petia',
-            surname: 'Ivanov',
-            do(phrase){
-                alert(`${phrase} ${this.firstName}?`);
-            },
-            go(phrase){
-                alert(`${phrase} ${this.firstName}?`);
-            }
-        }
-        for (let key in userAll) {
-            if (typeof userAll[key] == 'function') {
-                userAll[key] = userAll[key].bind(userAll);
-            }
-        }
-        //userAll.go();
-        let str = "Kavabanba";
         let favArr = [];
-        
         let addToFav = (id) => {
-            if(id !=0){
+            if(id !==0){
                 console.log(id);
-                favArr.push(id);
+                if(!favArr[id]){
+                    favArr.push(id);
+                }
+                console.log(favArr['+id+']);
             }
-            console.log(favArr);
         }
-        
-        let commit1 = () =>{
-            console.log('commit1')
-            console.log('commit1_1')
-        }
-        let commit2 = () =>{
-            console.log('commit2')
-        } 
-        let commit3 = () =>{
-            console.log('commit3')
-        }
-        
-     
-
-
-
-        // if(str.includes('Ka',0)){
-        //     console.log(str.includes('ba',5));
-        // }else{
-        //     console.log('str.indexOf is not defined');
+        // function validateForm() {
+        //     var x = document.forms["myForm"]["fname"].value;
+        //     if (x === "") {
+        //         alert("Name must be filled out");
+        //         return false;
+        //     }
         // }
-        //console.log( "Fidget".startsWith("Wid") );
-        
-        // let sayHi = user.sayHi.bind(user); // (*)
-        //setTimeout(sayHi, 1000); // Привет, Вася!
-
         
 
+        
         const listItems = this.state.numbersObj.map((item, key) =>
             <li className={listClass} key={key} onClick={() => this.onListClick(key.toString())}>
                 <div className="list-title">{item.title} item</div>
                 <div className={(isOpen && this.state.liKey === key.toString() )? listDropActive : listDrop}>{item.dropdown}</div>
             </li>
         );
-
         const ulBlock = <ul className="list-box">{listItems}</ul>;
-        
         const objectItem = this.state.objects.map((item, key) =>
             <li className={listClass} key={key} onClick={() => addToFav(item.id.toString())}>
                 <div className="list-title">{item.title} item</div>
                 <div className={(isOpen && this.state.liKey === key.toString() )? listDropActive : listDrop}>{item.dropdown}</div>
             </li>
         );
-
         const objectsBlock = <ul className="list-box">{objectItem}</ul>;
         
-
+        // const testForm = 
+        //     <div className="form-box">
+        //         <form name="myForm" action="" onSubmit={()=>validateForm()} method="post">Name: <input type="text" name="fname" /><input type="submit" value="Submit" /></form></div>;
+        
         return (
             <div className="main-bg">
                 <div className='header-container container-fluid'>
                     <div className='header-wrapper container'>
                         <div className='header-main row justify-content-md-between justify-content-sm-center'>
-                            <Form
-                                isOpen={this.props.isOpen}
-                                hanleClick={this.props.hanleClick}
-                                isCompleted={this.props.isCompleted}
-                                didCompleted={this.props.didCompleted}
-                            />
-                            <div className="btn-gray"  onClick={this.onBtnClick}>ADD Count</div>
+                            {/*{testForm}*/}
+                            {/*<Form*/}
+                            {/*    isOpen={this.props.isOpen}*/}
+                            {/*    hanleClick={this.props.hanleClick}*/}
+                            {/*    isCompleted={this.props.isCompleted}*/}
+                            {/*    didCompleted={this.props.didCompleted}*/}
+                            {/*/>*/}
+                            <form onSubmit={this.onAsync}>
+                                <input name="name" onChange={this.onNameChange}/>
+                                <input className="btn-gray"  type="submit" placeholder="ADD Item"/>
+                            </form>
+                         
                             {clicked &&
                                 <div className="btn-yellow">Open</div>
                             }
@@ -298,8 +210,7 @@ export default class Header extends Component {
                             {ulBlock}
                             {objectsBlock}
                             
-
-
+                            
                             <div className='header-main-titleBlock col-md-5 text-center text-md-left col-sm-10'>
                                 {/*<h1 className='header-title'>header title</h1>*/}
                             </div>
@@ -318,6 +229,4 @@ export default class Header extends Component {
             </div>
         )
     }
-
-
 }
