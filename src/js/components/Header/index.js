@@ -102,21 +102,33 @@ export default class Header extends Component {
         let time = '12:37:34'
         let timeMask = /^\d\d:\d\d:\d\d$/
         let phoneMask = /^[\d]+$/ig
-        let emailMask = /@/i
+        let emailMask = /[a-z]+@/i
         let citeMask = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/
         let number = "+7(903)-123-45-67";
         let errors = {}
+        const errorField = (field) => {
+            let elem = document.getElementsByName(field)
+            console.log(elem[0].style.borderColor = 'red')
+        }
+        const inactiveField = (field) => {
+            let elem = document.getElementsByName(field)
+            console.log(elem[0].style.borderColor = '')
+        }
         const testInput = (key, value, rule) => {
-            if(!value.match(rule)){
+            if(!value.match(rule) || !value){
                 errors[key] = 'invalid'
+                errorField(key)
                 return true
             }
             if(key in errors)  delete errors[key]
+            inactiveField(key)
             return false
         }
         testInput('phone', phone, phoneMask)
         testInput('email', email, emailMask)
+
         console.log(errors)
+        
 
       
         
