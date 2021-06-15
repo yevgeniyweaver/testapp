@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty, isEmptyObject, isSum } from './../../scripts/functions'
 //import Form from '../../components/Form';
 // import { useTranslation } from 'react-i18next';
 // import { Link as ScrollLink } from 'react-scroll';
@@ -18,6 +19,7 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: 1,
             name: '',
             phone: '',
             email: '',
@@ -69,6 +71,10 @@ export default class Header extends Component {
         let name = e.target.value;
         this.setState({ name: name});
     }
+    onIdChange = (e) => {
+        let id = parseInt(e.target.value);
+        this.setState({ userId: id});
+    }
     onPhoneChange = (e) => {
         let phone = e.target.value;
         this.setState({ phone: phone});
@@ -77,42 +83,24 @@ export default class Header extends Component {
         let email = e.target.value;
         this.setState({ email: email});
     }
-    
+
     onGetData = async (e) => {
         e.preventDefault();
         let phone = this.state.phone
         let email = this.state.email
-        console.log(phone)
-        console.log(email)
-
+        // console.log(phone)
+        // console.log(email)
 
         // let res = phone.match(/var/gi)
-        // console.log(res)
-        let str = `7 88 77 6655 23_a./34 1_wvTTRRasia`
-        let str2 = `+38(098) 63-45-167black Вася и Петя`
-        let str4 = `1) это метеочувствительные люди,
-                    2) имеющие хронические заболевания
-                       a) пожилые
-                       b)сердечники,
-                    3) гипертоники и гипотоники,
-                    4) люди с бессонницей.`;
-        let title = `vasia343434`
-        let nameMask = /^[a-zA-ZäöüÄÖÜß\u0400-\u04FF-\s]*$/i
-        let emailTest = `vasia@gmail.com`
-        let time = '12:37:34'
-        let timeMask = /^\d\d:\d\d:\d\d$/
-        let phoneMask = /^[\d]+$/ig
-        let emailMask = /[a-z]+@/i
-        let citeMask = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/
-        let number = "+7(903)-123-45-67";
+
         let errors = {}
         const errorField = (field) => {
             let elem = document.getElementsByName(field)
-            console.log(elem[0].style.borderColor = 'red')
+            elem[0].style.borderColor = 'red'
         }
         const inactiveField = (field) => {
             let elem = document.getElementsByName(field)
-            console.log(elem[0].style.borderColor = '')
+            elem[0].style.borderColor = ''
         }
         const testInput = (key, value, rule) => {
             if(!value.match(rule) || !value){
@@ -120,36 +108,99 @@ export default class Header extends Component {
                 errorField(key)
                 return true
             }
-            if(key in errors)  delete errors[key]
+            if(key in errors) delete errors[key]
             inactiveField(key)
             return false
         }
-        testInput('phone', phone, phoneMask)
-        testInput('email', email, emailMask)
-
-        console.log(errors)
-        
-
-      
-        
-        //let res2 = str.replace(/^[\d-./]+/i, '0987656166')
-        //console.log(res2)
-       // console.log( str.match(/\s/ig).join('') )
-        //console.log( str2.replace(/CSS.4/ig, '') )
-        // console.log( str2.match(/^.[\d\s()-]+/i).join('') )
-        // console.log( str2.match(/[\d]+/ig).join('') )
-        //console.log( str2.match(/[a-z]/ig).join('') )
-        //console.log( str2.match(/^.+[а-я]+$/))
-        //console.log( str4.match(/^[1-2a-z]/gm).join('') )
-        // console.log( titleMask.test(title) )
-        //console.log( emailTest.match(emailMask) )
-        // console.log( /^[a-zA-Zа-я]+$/i.test(str3) )
-        //regexp.test(str)
-        
-        // if(!res){
+        // testInput('phone', phone, maskObject.phoneMask)
+        // testInput('email', email, maskObject.emailMask)
+        // console.log(Object.entries(errors).length )
+        // if(errors.length === 0){
         //     console.log('error')
         // }
-        
+
+        let users
+        let response = await fetch('https://jsonplaceholder.typicode.com/users');
+        if (response.ok) { // если HTTP-статус в диапазоне 200-299
+            users = await response.json(); // получаем тело ответа (см. про этот метод ниже)
+        } else {
+            alert("Ошибка HTTP: " + response.status);
+        }
+
+        const findUser = (id) => {
+            console.log(id)
+            let userOne = users.find((item, index, array) => {
+                if(item.id === id){
+                    return item.name
+                }
+            })
+            const greet = () => {
+                let surname = 'Dallas';
+                console.log(`My name is: ${this.name}  ${surname}`);
+            }
+            // additional function for user
+            let userAdds = {
+                greet: greet,
+                hello(){
+                    console.log(`Hello ${this.name}`)
+                }
+            }
+            userAdds.liveIn = function() {
+                console.log(`${this.name} live in ${this.address.city} ${this.address.street}`);
+            };
+            userAdds.workIn = function() {
+                console.log(`${this.name} work in: ${this.company.name}`);
+            };
+            let fullUser = Object.assign({}, userOne, userAdds)
+            console.log(fullUser)
+            fullUser.liveIn()
+            fullUser.workIn()
+        }
+        findUser(this.state.userId)
+
+
+
+
+
+        let person2 = {}; // новый пустой объект
+        // for (let key in person) {
+        //     person2[key] = person[key];
+        // }
+
+        // let personNew = {}
+        // //let clone = Object.assign({}, person, person2);
+        // for(let key in person2){
+        //     if(typeof person2[key] === 'object'){
+        //         for(let key2 in person2[key]){
+        //             console.log(person2[key])
+        //             personNew[key][key2] = person2[key][key2]
+        //             // if (person2[key].hasOwnProperty(key2)) {
+        //             // }
+        //         }
+        //     }else{
+        //         personNew[key] = person2[key]
+        //     }
+        // }
+        // console.log(personNew)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // async function getData() {
         //     //return Promise.reject('errro')
@@ -176,7 +227,7 @@ export default class Header extends Component {
         // let data = await getData()
         // return data
     }
-    
+
     onGetStatus = (e) => {
         e.preventDefault();
         let inputName =  this.state.name;
@@ -197,7 +248,7 @@ export default class Header extends Component {
                 }
                 setTimeout(() => reject(inputName), 1700)
             });
-            
+
             let status = ''
             try {
                 status = await promise; // будет ждать, пока промис не выполнится (*)
@@ -223,14 +274,14 @@ export default class Header extends Component {
             }
           )
     }
-    
+
 
     render(){
-        let { clicked, isOpen } = this.state;
+        let { clicked, isOpen, userId } = this.state;
         let listClass = "list-item";
         let listDrop = "list-drop";
         let listDropActive = "list-drop-active";
-        
+
         let favArr = [];
         let addToFav = (id) => {
             if(id !==0){
@@ -248,9 +299,10 @@ export default class Header extends Component {
         //         return false;
         //     }
         // }
-        
 
-        
+
+
+
         const listItems = this.state.numbersObj.map((item, key) =>
             <li className={listClass} key={key} onClick={() => this.onListClick(key.toString())}>
                 <div className="list-title">{item.title} item</div>
@@ -265,11 +317,11 @@ export default class Header extends Component {
             </li>
         );
         const objectsBlock = <ul className="list-box">{objectItem}</ul>;
-        
-        // const testForm = 
+
+        // const testForm =
         //     <div className="form-box">
         //         <form name="myForm" action="" onSubmit={()=>validateForm()} method="post">Name: <input type="text" name="fname" /><input type="submit" value="Submit" /></form></div>;
-        
+
         return (
             <div className="main-bg">
                 <div className='header-container container-fluid'>
@@ -287,19 +339,24 @@ export default class Header extends Component {
                             {/*    <input className="btn-gray"  type="submit" placeholder="ADD Item"/>*/}
                             {/*</form>*/}
 
-                            <form onSubmit={this.onGetData}>
-                                <input name="phone" onChange={this.onPhoneChange}/>
-                                <input name="email" onChange={this.onEmailChange}/>
+                            {/*<form id="testForm_1" onSubmit={this.onGetData}>*/}
+                            {/*    <input name="phone" onChange={this.onPhoneChange}/>*/}
+                            {/*    <input name="email" onChange={this.onEmailChange}/>*/}
+                            {/*    <input className="btn-gray"  type="submit" placeholder="ADD data"/>*/}
+                            {/*</form>*/}
+
+                            <form id="findForm_1" onSubmit={this.onGetData}>
+                                <input name="id" onChange={this.onIdChange} defaultValue={userId}/>
                                 <input className="btn-gray"  type="submit" placeholder="ADD data"/>
                             </form>
-                         
+
                             {clicked &&
                                 <div className="btn-yellow">Open</div>
                             }
                             <h2 className='header-suptitle'>Distribution Summary</h2>
                             {/*{ulBlock}*/}
                             {/*{objectsBlock}*/}
-                            
+
                             <div className='header-main-titleBlock col-md-5 text-center text-md-left col-sm-10'>
                                 {/*<h1 className='header-title'>header title</h1>*/}
                             </div>
