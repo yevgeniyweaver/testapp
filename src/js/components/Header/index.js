@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isEmptyObject, isSum } from './../../scripts/functions'
+import { varLet } from './../../scripts/es6'
+
 //import Form from '../../components/Form';
 // import { useTranslation } from 'react-i18next';
 // import { Link as ScrollLink } from 'react-scroll';
@@ -128,10 +130,10 @@ export default class Header extends Component {
         }
 
         const findUser = (id) => {
-            console.log(id)
+            //console.log(id)
             let userOne = users.find((item, index, array) => {
                 if(item.id === id){
-                    return item.name
+                    return item
                 }
             })
             const greet = () => {
@@ -152,15 +154,50 @@ export default class Header extends Component {
                 console.log(`${this.name} work in: ${this.company.name}`);
             };
             let fullUser = Object.assign({}, userOne, userAdds)
-            console.log(fullUser)
-            fullUser.liveIn()
-            fullUser.workIn()
+            // console.log(fullUser)
+            // fullUser.liveIn()
+            // fullUser.workIn()
+            varLet(userOne)
         }
         findUser(this.state.userId)
 
+        let fruits = [[2,4,5], {"fruit":"sliva"}, (f)=>{return f }, "Апельсин", "Слива",];
+       // console.log(fruits.toString())
+        var is_array = function(input) {
+            if (toString.call(input) ==="[object Array]")
+                return true;
+            return false;
+        };
+        //console.log(toString.call("sd"))
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //user2.full?.()
+        //console.log(user2.full?.())
+        // let vasia = user;
 
         let person2 = {}; // новый пустой объект
         // for (let key in person) {
