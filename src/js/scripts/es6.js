@@ -44,6 +44,8 @@ function varLet(userOne){
   printf(2,3,4,5,6)
 
 
+  fined = 5; // выдаст TypeError
+  var fined
 
 
 

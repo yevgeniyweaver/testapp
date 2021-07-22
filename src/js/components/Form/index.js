@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import '../../../scss/Form.scss';
+import { initUsers } from '../../data/initUsers'
+import '../../../scss/Header.scss';
 
 export default class Form extends React.Component {
     static propTypes = {
@@ -12,56 +13,80 @@ export default class Form extends React.Component {
     };
     constructor(props) {
         super(props);
-        this.state = {value: ''};
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            users: null,
+            name: '',
+            namePlaceholder: 'ex: John',
+            message: '',
+            messagePlaceholder: 'write something'
+        };
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeMessage = this.onChangeMessage.bind(this);
     }
 
-    handleChange = (event) => {
-        this.setState({value: event.target.value});
+    componentDidMount(){
+        this.setUsers();
+        document.body.scrollTop = 188;
     }
 
-    handleSubmit = (event) => {
-        //alert('Отправленное имя: ' + this.state.value);
+    setUsers = async() => {
+        const users = await initUsers();
+        this.setState({ users : users });
+    }
+
+    onChangeName = (event) => {
+        this.setState({name: event.target.value});
+    }
+    onChangeMessage = (event) => {
+        this.setState({message: event.target.value});
+    }
+
+    onSubmit = (event) => {
         event.preventDefault();
     }
-    // handleSubmit(event){
-    //     alert('Отправленное имя: ' + this.state.value);
-    //     event.preventDefault();
-    // }
+    onClickForm = (event) => {
+        console.log(event)
+        console.log(event.target)
+        console.log(event.currentTarget)
+    }
+    nameClick = (event) => {
+        event.stopPropagation();
+    }
+    messageClick = (event) => {
+
+    }
 
     render() {
-        let ms = 1e-6;
-        console.log(ms);
-      
-        let num = 1.23456;
-
-        console.log( Math.floor(num * 100) / 100 );
-        console.log( num.toFixed(2));
-        function commit(name){
-            console.log(name);
-        } 
-        function commit2(name){
-            console.log(name);
+        let { namePlaceholder, messagePlaceholder, users, isOpen } = this.state
+        console.log(users)
+        let listClass = "list-item";
+        let listDrop = "list-drop";
+        let listDropActive = "list-drop-active";
+        let UsersList;
+        if(users){
+            const usersItems = users.map((item, key) =>
+              <li className={listClass} key={key}>
+                  <div className="list-title listDrop">{item.name} item</div>
+              </li>
+            );
+            UsersList = <ul className="list-box">{usersItems}</ul>;
         }
-        function commit3(name){
-            console.log('commit3');
-        }
-        
-
-
-
-
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    <div className="">{this.state.value}</div>
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Отправить" />
-            </form>
+          <div>
+              <form id="form_1" onSubmit={this.onSubmit} onClick={this.onClickForm}>
+                  <label>
+                      <div className="">Name</div>
+                      <input type="text" name="name" value={this.state.name} onChange={this.onChangeName} placeholder={namePlaceholder} onClick={this.nameClick} />
+                  </label>
+                  <label>
+                      <div className="">Message</div>
+                      <input type="text" name="message" value={this.state.message} onChange={this.onChangeMessage} placeholder={messagePlaceholder} onClick={this.messageClick}/>
+                  </label>
+                  <input type="submit" value="Send" />
+              </form>
+              {users && users.length && UsersList}
+          </div>
         );
     }
 }

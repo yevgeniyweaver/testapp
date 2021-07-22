@@ -2,7 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';import { bindActionCreators } from 'redux';
+import { Helmet } from 'react-helmet';
+import { bindActionCreators } from 'redux';
 import HeaderSection from '../../components/HeaderSection/index';
 import Header from '../../components/Header';
 

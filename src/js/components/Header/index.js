@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isEmpty, isEmptyObject, isSum } from './../../scripts/functions'
 import { varLet } from './../../scripts/es6'
 
-//import Form from '../../components/Form';
+import Form from '../../components/Form';
 // import { useTranslation } from 'react-i18next';
 // import { Link as ScrollLink } from 'react-scroll';
 //import { Materials, PlanOfCourse, Images, afterCourseBlock } from '../../config/qaengine';
@@ -130,7 +130,6 @@ export default class Header extends Component {
         }
 
         const findUser = (id) => {
-            //console.log(id)
             let userOne = users.find((item, index, array) => {
                 if(item.id === id){
                     return item
@@ -171,30 +170,6 @@ export default class Header extends Component {
         //console.log(toString.call("sd"))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //user2.full?.()
         //console.log(user2.full?.())
         // let vasia = user;
@@ -219,50 +194,6 @@ export default class Header extends Component {
         //     }
         // }
         // console.log(personNew)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // async function getData() {
-        //     //return Promise.reject('errro')
-        //     return phone
-        //     // let user
-        //     // let response = await fetch('https://jsonplaceholder.typicode.com/users');
-        //     // if (response.ok) { // если HTTP-статус в диапазоне 200-299
-        //     //     user = await response.json(); // получаем тело ответа (см. про этот метод ниже)
-        //     // } else {
-        //     //     alert("Ошибка HTTP: " + response.status);
-        //     // }
-        //     // console.log(user)
-        //     // let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
-        //     // let res = await fetch(url);
-        //     // let commits = await res.json(); // читаем ответ в формате JSON
-        //     // console.log(commits)
-        //     //let promise = Promise.resolve(inputName)
-        //
-        //     // let promise2 = new Promise((resolve, reject) => {
-        //     //     setTimeout(() => reject('error '+inputName), 1700)
-        //     // });
-        //     // let error = await promise2;
-        // }
-        // let data = await getData()
-        // return data
     }
 
     onGetStatus = (e) => {
@@ -336,10 +267,6 @@ export default class Header extends Component {
         //         return false;
         //     }
         // }
-
-
-
-
         const listItems = this.state.numbersObj.map((item, key) =>
             <li className={listClass} key={key} onClick={() => this.onListClick(key.toString())}>
                 <div className="list-title">{item.title} item</div>
@@ -365,12 +292,12 @@ export default class Header extends Component {
                     <div className='header-wrapper container'>
                         <div className='header-main row justify-content-md-between justify-content-sm-center'>
                             {/*{testForm}*/}
-                            {/*<Form*/}
-                            {/*    isOpen={this.props.isOpen}*/}
-                            {/*    hanleClick={this.props.hanleClick}*/}
-                            {/*    isCompleted={this.props.isCompleted}*/}
-                            {/*    didCompleted={this.props.didCompleted}*/}
-                            {/*/>*/}
+                            <Form
+                                isOpen={this.props.isOpen}
+                                hanleClick={this.props.hanleClick}
+                                isCompleted={this.props.isCompleted}
+                                didCompleted={this.props.didCompleted}
+                            />
                             {/*<form onSubmit={this.onGetStatus}>*/}
                             {/*    <input name="name" onChange={this.onNameChange}/>*/}
                             {/*    <input className="btn-gray"  type="submit" placeholder="ADD Item"/>*/}
@@ -382,15 +309,15 @@ export default class Header extends Component {
                             {/*    <input className="btn-gray"  type="submit" placeholder="ADD data"/>*/}
                             {/*</form>*/}
 
-                            <form id="findForm_1" onSubmit={this.onGetData}>
-                                <input name="id" onChange={this.onIdChange} defaultValue={userId}/>
-                                <input className="btn-gray"  type="submit" placeholder="ADD data"/>
-                            </form>
+                            {/*<form id="findForm_1" onSubmit={this.onGetData}>*/}
+                            {/*    <input name="id" onChange={this.onIdChange} defaultValue={userId}/>*/}
+                            {/*    <input className="btn-gray"  type="submit" placeholder="ADD data"/>*/}
+                            {/*</form>*/}
 
-                            {clicked &&
-                                <div className="btn-yellow">Open</div>
-                            }
-                            <h2 className='header-suptitle'>Distribution Summary</h2>
+                            {/*{clicked &&*/}
+                            {/*    <div className="btn-yellow">Open</div>*/}
+                            {/*}*/}
+                            {/*<h2 className='header-suptitle'>Distribution Summary</h2>*/}
                             {/*{ulBlock}*/}
                             {/*{objectsBlock}*/}
 
